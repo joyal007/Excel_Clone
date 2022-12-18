@@ -17,35 +17,43 @@
   padding-top: 4px;
 }
 .grid-sheet {
-  height: calc(100vh - (100px));
+  height: calc(100vh - (140px));
   position: relative;
-  overflow: auto;
+  overflow: scroll;
+
 }
 .top-left-block {
   height: 20px;
   min-width: 40px;
   background-color: grey;
-  position: absolute;
+  position: fixed;
   z-index: 100;
+}
+.top-row .grid-cell{
+  resize: horizontal;
 }
 .top-row {
   height: 20px;
   background-color: #f1f3f4;
+  z-index:90;
   display: flex;
-  position: absolute;
+  /* position: absolute; */
+  position:sticky;
+  top:0px;
+  width: max-content;
+  
   /* top: 0px; */
   left: 40px;
-  /* overflow:auto; */
-  color: #555;
+  color:#555;
   
 }
-.top-row .grid-cell{
-  resize:horizontal;
-}
+
 
 .left-col {
+  position:sticky;
   width: 40px;
-  position: absolute;
+  /* position: absolute; */
+  left:0;
   top:20px;
   z-index: 90;
 }
@@ -55,14 +63,15 @@
   border-width: 0px 0px 1px 1px;
   height: 20px;
   display: flex;
-  overflow:scroll;
+  overflow:hidden;
   justify-content: center;
   align-items: center;
   /* padding: 3px; */
 }
 .grid-left-col {
   font-size: 14px;
-  border: 1px solid lightgray;
+  border: solid lightgray;
+  border-width: 0 0 1px 1px;
   height: 20px;
   background-color: #f1f3f4;
   display: flex;
@@ -76,6 +85,7 @@
   height: 20px;
 }
 .main-sheet{
+  /* overflow-x: auto; */
   position:absolute;
   top:20px;
   left:40px;

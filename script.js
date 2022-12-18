@@ -26,7 +26,7 @@ $(() => {
     row_cells += "</div>";
     $(".main-sheet").append(row_cells);
   }
-  const funct =[
+  const funct = [
     "SUM",
     "MINUS",
     "MULTIPLY",
@@ -36,12 +36,15 @@ $(() => {
     "MAX",
     "COUNT",
     "CONCAT",
-    "EQ"
-  ]
-  
-  
-  funct.forEach(e=>  $('.dropdown-menu').append(`<button class="dropdown-item" onClick="functionCall('${e}')" type="button">${e}</button>`)  )
-  
+    "EQ",
+  ];
+
+  funct.forEach((e) =>
+    $(".dropdown-menu").append(
+      `<button class="dropdown-item" onClick="functionCall('${e}')" type="button">${e}</button>`
+    )
+  );
+
   //add active cell to MainSheet
   $(".A1").addClass("grid-cell__active");
 
@@ -65,6 +68,7 @@ $(() => {
   const observer = new ResizeObserver((e) => {
     const width = e[0].contentBoxSize[0].inlineSize;
     const cls = e[0].target.classList[2];
+    console.log(cls)
     $(`div[class*='${cls}']`).css({ width: width });
   });
   document.querySelectorAll(".top-row .grid-cell").forEach((box) => {
@@ -93,8 +97,8 @@ $(() => {
           )
             .addClass("grid-cell__active")
             .focus();
-            $('.grid-cell__class').html($('.grid-cell__active')[0].classList[1])
-            $('input#text-input').val($('.grid-cell__active').html())
+          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+          $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 38) {
         //up arrow
@@ -103,8 +107,8 @@ $(() => {
           $(`.${clsName[0]}${Number(clsName.slice(1, clsName.length)) - 1}`)
             .addClass("grid-cell__active")
             .focus();
-            $('.grid-cell__class').html($('.grid-cell__active')[0].classList[1])
-            $('input#text-input').val($('.grid-cell__active').html())
+          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+          $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 39) {
         //right arrow
@@ -118,8 +122,8 @@ $(() => {
           )
             .addClass("grid-cell__active")
             .focus();
-            $('.grid-cell__class').html($('.grid-cell__active')[0].classList[1])
-            $('input#text-input').val($('.grid-cell__active').html())
+          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+          $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 40) {
         //down arrow
@@ -128,8 +132,8 @@ $(() => {
           $(`.${clsName[0]}${Number(clsName.slice(1, clsName.length)) + 1}`)
             .addClass("grid-cell__active")
             .focus();
-            $('.grid-cell__class').html($('.grid-cell__active')[0].classList[1])
-            $('input#text-input').val($('.grid-cell__active').html())
+          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+          $("input#text-input").val($(".grid-cell__active").html());
         }
       }
 
@@ -138,11 +142,29 @@ $(() => {
         //Shift+Right Arrow
         const li = $(".grid-cell__active");
         const alpha = li[li.length - 1].classList[1][0];
-        const num = li[li.length - 1].classList[1].slice(1,li[li.length-1].classList[1].length);
-        if (num == li[0].classList[1].slice(1,li[li.length-1].classList[1].length))
+        const num = li[li.length - 1].classList[1].slice(
+          1,
+          li[li.length - 1].classList[1].length
+        );
+        if (num == li[0].classList[1].slice(1, li[0].classList[1].length))
           $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${num}`).addClass(
             "grid-cell__active"
           );
+        else {
+          const firstCel = li[0].classList[1];
+          const lastCel = `${String.fromCharCode(
+            alpha.charCodeAt(0) + 1
+          )}${num}`;
+          for (
+            let i = Number(firstCel.slice(1, firstCel.length));
+            i <= Number(num);
+            i++
+          ) {
+            $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${i}`).addClass(
+              "grid-cell__active"
+            );
+          }
+        }
         const newCls = $(".grid-cell__active");
         const startCell = newCls[0].classList[1];
         const endCell = newCls[newCls.length - 1].classList[1];
@@ -157,6 +179,13 @@ $(() => {
         );
         if (alpha === li[0].classList[1][0])
           $(`.${alpha}${Number(num) + 1}`).addClass("grid-cell__active");
+        else {
+          const firstCel = li[0].classList[1];
+          for (let i = firstCel.charCodeAt(0); i <= alpha.charCodeAt(0); i++)
+            $(`.${String.fromCharCode(i)}${Number(num) + 1}`).addClass(
+              "grid-cell__active"
+            );
+        }
         const newCls = $(".grid-cell__active");
         const startCell = newCls[0].classList[1];
         const endCell = newCls[newCls.length - 1].classList[1];
@@ -169,6 +198,20 @@ $(() => {
         const cls = li[li.length - 1].classList[1];
         if (cls[1] == li[0].classList[1][1])
           $(`.${cls}`).removeClass("grid-cell__active");
+        else if (
+          cls[1] != li[0].classList[1][1] &&
+          cls[0] != li[0].classList[1][0]
+        ) {
+          const firstCel = li[0].classList[1];
+          const limit = Number(cls.slice(1, cls.length));
+          for (
+            let i = Number(firstCel.slice(1, firstCel.length));
+            i <= limit;
+            i++
+          ) {
+            $(`.${cls[0]}${i}`).removeClass("grid-cell__active");
+          }
+        }
         const newCls = $(".grid-cell__active");
         const startCell = newCls[0].classList[1];
         const endCell = newCls[newCls.length - 1].classList[1];
@@ -184,6 +227,20 @@ $(() => {
         const cls = li[li.length - 1].classList[1];
         if (cls[0] === li[0].classList[1][0])
           $(`.${cls}`).removeClass("grid-cell__active");
+        else if (
+          cls[1] != li[0].classList[1][1] &&
+          cls[0] != li[0].classList[1][0]
+        ) {
+          const firstCel = li[0].classList[1];
+          const limit = cls.charCodeAt(0)
+          for (
+            let i = firstCel.charCodeAt(0);
+            i <= limit;
+            i++
+          ) {
+            $(`.${String.fromCharCode(i)}${cls.slice(1,cls.length)}`).removeClass("grid-cell__active");
+          }
+        }
         const newCls = $(".grid-cell__active");
         const startCell = newCls[0].classList[1];
         const endCell = newCls[newCls.length - 1].classList[1];
@@ -202,10 +259,9 @@ $(() => {
     });
 });
 
-
-function functionCall (typeCall) {
-  $('input#text-input').val(`=${typeCall}(${$(".grid-cell__class").html()})`)
-  evaluate(`=${typeCall}(${$(".grid-cell__class").html()})`)
+function functionCall(typeCall) {
+  $("input#text-input").val(`=${typeCall}(${$(".grid-cell__class").html()})`);
+  evaluate(`=${typeCall}(${$(".grid-cell__class").html()})`);
 }
 
 function enterKeyPressed(event) {
@@ -264,7 +320,7 @@ function wordCheck() {
   }
 }
 const evaluate = (value) => {
-  console.log(value)
+  console.log(value);
   const funct = {
     SUM: (val) => {
       let sum = val.reduce((a, b) => Number(a) + Number(b), 0);
@@ -323,9 +379,15 @@ const evaluate = (value) => {
     for (let i = Number(num[0]); i <= Number(num[1]); i++) {
       items.push($(`.${alpha[0]}${i}`).html());
     }
-  } else {
+  } else if(num[0]==num[1]){
     for (let i = alpha[0].charCodeAt(0); i <= alpha[1].charCodeAt(0); i++) {
       items.push($(`.${String.fromCharCode(i)}${num[0]}`).html());
+    }
+  }
+  else{
+    for(let i = alpha[0].charCodeAt(0);i<=alpha[1].charCodeAt(0);i++){
+      for(let j = Number(num[0]);j<=Number(num[1]);j++)
+        items.push($(`.${String.fromCharCode(i)}${j}`).html())
     }
   }
   const res = funct[oper](items);
@@ -333,16 +395,20 @@ const evaluate = (value) => {
   if (cls.length === 1) {
     cls.html(res);
   } else {
-    $('div').removeClass('grid-cell__active')
+    $("div").removeClass("grid-cell__active");
     const alpha = cls[cls.length - 1].classList[1][0];
     const num = cls[cls.length - 1].classList[1].slice(
       1,
       cls[cls.length - 1].classList[1].length
     );
-    if (cls[0].classList[1][0] == cls[1].classList[1][0]) {
-      $(`.${alpha}${Number(num) + 1}`).html(res).addClass('grid-cell__active');
+    if (cls[0].classList[1][1] == cls[1].classList[1][1]) {
+      $(`.${alpha}${Number(num) + 1}`)
+        .html(res)
+        .addClass("grid-cell__active");
     } else {
-      $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${num}`).html(res).addClass('grid-cell__active');
+      $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${num}`)
+        .html(res)
+        .addClass("grid-cell__active");
     }
   }
 };
