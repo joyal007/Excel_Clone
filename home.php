@@ -28,8 +28,24 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
     </head>
     <body>
         <nav class="navbar navbar-expand-lg" >
+<<<<<<< HEAD:home.php
 
             <div class="top-sec">
+=======
+            
+            <div class="top-sec ">
+                <img src="./default-dp.jpg" alt="profile picture"
+            width="50" height="50" class="d-inline-block dropdown " 
+            style=" margin: 10px;">
+            <div class="dropdown-content">
+                <div style="padding-left: 12px;"><p>saheenusman@gmail.com</p></div>
+                <div class="button"><a href="#" ><h3 style="color: aliceblue;font-size: 22px;
+                    font-family: 'Oswald', sans-serif;">Log Out</h2></a></div>
+            </div>
+                <div class="menu_b" 
+                style=" margin-left: 72%;"><p class="cred ">Saheen Usman</p></div>
+            
+>>>>>>> c1189c5b915daeb041a8fa88d38959dcad85b5ba:home.html
                 <div class="menu_b">
                     <h3 class="heading">Excel</h3>
                 </div>
@@ -72,8 +88,13 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
                 <h6 class="mini-heading">Blank</h6>
             </div>
         </div>
-        <h2 class="sub-heading">Created Spreadsheets</h2>
+        <div class="sub-heading-row">
+            <h2 class="sub-heading">Created Spreadsheets</h2>
+        <!-- <div class="width-spacer"></div> -->
+            <h4 class="mini-heading">Last opened</h4>
+        </div>
         <div id="created-sheets"></div>
+<<<<<<< HEAD:home.php
         <?php
 echo $_SESSION["login_userid"];
 echo $_SERVER['REQUEST_URI'];    
@@ -84,5 +105,26 @@ echo $_SERVER['REQUEST_URI'];
       crossorigin="anonymous"
     ></script>
     <script src="./home.js"></script>
+=======
+        <script>
+            var listDiv=document.createElement('div');
+            listDiv.className='sub-heading-row'; 
+            // document.getElementById("created-sheets").appendChild(listDiv);
+            var sheetName=document.createElement('h5');
+            sheetName.className='list-item';
+            var nameText=document.createTextNode("Quartely Earnings");
+            sheetName.appendChild(nameText);
+            var sheetDate=document.createElement('h6');
+            sheetDate.className='list-item';
+            var nameDate=document.createTextNode("15/12/2022");
+            sheetDate.appendChild(nameDate);
+            listDiv.appendChild(sheetName);
+            listDiv.appendChild(sheetDate);
+            document.getElementById("created-sheets").appendChild(listDiv);
+        </script>
+
+        
+        
+>>>>>>> c1189c5b915daeb041a8fa88d38959dcad85b5ba:home.html
     </body>
 </html>
