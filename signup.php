@@ -1,3 +1,6 @@
+<?php
+  session_start()
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,22 +31,29 @@
         
           <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          <form action="config.php" method="post" onsubmit="return checkPass()" >
           <div class="inputSection">
-            <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" style="height:56px">
+            <!-- <label for="exampleFormControlIndsadfput1" class="form-label">Email address</label> -->
+            <input type="email" name="email" required class="form-control" id="exampleFormControlInput1" placeholder="Email" style="height:56px">
             <div style="height:16px;"></div>
-            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="User Name" style="height:56px" >
+            <input type="text" name="user" required class="form-control" id="exampleFormControlInput2" placeholder="User Name" style="height:56px" >
             <div style="height:16px;"></div>
-            <input type="password" class="form-control" id="exampleFormControlInput3" placeholder="Password" style="height:56px">
+            <input type="password" name="password1" required class="form-control" id="exampleFormControlInput3" placeholder="Password" style="height:56px">
             <div style="height:16px;"></div>
-            <input type="password" class="form-control" id="exampleFormControlInput3" placeholder="Confirm Password" style="height:56px">
-           
+            <input type="password" name="password2" class="form-control"required required id="exampleFormControlInput4" placeholder="Confirm Password" style="height:56px">
+            <?php
+             if(isset($_SESSION['message_signup']) && !empty($_SESSION['message'])) {
+              echo "<div style='font-size:14px;color:red;padding-top:8px'>".$_SESSION['message']."</div>";
+           }
+              
+            ?>
 
             <div class="footer">
-                <a href="signin.html"><button type="button" class="btn" style="color:rgb(73, 121, 209);padding:0">Already have an account</button></a>
-                <button type="button" class="btn btn-primary" style="padding:6px 24px">Sign Up</button>
+                <a href="signin.php"><button type="button" class="btn" style="color:rgb(73, 121, 209);padding:0">Already have an account</button></a>
+                <button type="submit" name="signup" class="btn btn-primary" style="padding:6px 24px">Sign Up</button>
             </div>
           </div>
+          </form>
         </div>
       </div>
       <div class="flex">

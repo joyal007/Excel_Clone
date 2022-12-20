@@ -12,6 +12,12 @@
 .underline {
   margin-bottom: 1px;
 }
+.flex{
+  display:flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  
+}
 #gray-strip{
   width: 100%;
   height: 270px;

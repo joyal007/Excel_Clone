@@ -1,3 +1,8 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,20 +33,28 @@
         
           <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          <form action="config.php" method='post'>
           <div class="inputSection">
             <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" style="height:56px">
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" style="height:56px">
             <span class="forgot">Forgot Email?</span>
             <div style="height:16px;">
 
             </div>
-            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password" style="height:56px">
+            <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="Password" style="height:56px">
             <span class="forgot">Forgot Password?</span>
+            <?php
+             if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+              echo "<div style='font-size:14px;color:red;padding-top:8px'>".$_SESSION['message']."</div>";
+           }
+              
+            ?>
             <div class="footer">
                 <a href="signup.html"><button type="button" class="btn" style="color:rgb(73, 121, 209);padding:0">Create account</button></a>
-                <button type="button" class="btn btn-primary" style="padding:6px 24px">Sign In</button>
+                <button type="submit" name="signin" class="btn btn-primary" style="padding:6px 24px">Sign In</button>
             </div>
           </div>
+          </form>
         </div>
       </div>
       <div class="flex">

@@ -19,13 +19,21 @@ $(() => {
   for (let i = 0; i < 100; i++) {
     let row_cells = "<div class='grid-row'>";
     for (let j = 0; j < 26; j++) {
-      row_cells += `<div contentEditable='true' class='grid-cell ${
-        String.fromCharCode(65 + j) + String(i + 1)
-      }'></div>`;
+      row_cells += `<div contentEditable='true' class='grid-cell ${String.fromCharCode(65 + j) + String(i + 1)
+        }'></div>`;
     }
     row_cells += "</div>";
     $(".main-sheet").append(row_cells);
   }
+  const fileId = window.location.href.split('=')[1]
+  let data={'fileId':fileId};
+  let inputVal = {}
+
+  $.post("getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
+    data = JSON.parse(data).data;
+    inputVal = data.inputVal;
+  })
+
   const funct = [
     "SUM",
     "MINUS",
@@ -36,8 +44,9 @@ $(() => {
     "MAX",
     "COUNT",
     "CONCAT",
-    "EQ",
+    "EQ"
   ];
+
 
   funct.forEach((e) =>
     $(".dropdown-menu").append(
@@ -51,10 +60,17 @@ $(() => {
   //Auto Focus to gridcell
   $(".grid-cell__active").focus();
 
+ 
+
   //click event listener to grid-cell
   $(".grid-row .grid-cell").on("click", (event) => {
+    console.log(inputVal);
     $("div").removeClass("grid-cell__active");
-    console.log(event.target);
+    const cls = event.target.classList[1];
+    // console.log(cls in inputVal);
+    // if((cls in inputVal)===false){
+    //   inputVal[`${cls}`]=""
+    // }
     $(event.target).addClass("grid-cell__active");
     const gridCellVal = $(".grid-cell__active").html();
     const inputVal = $("input#text-input").val();
@@ -63,6 +79,13 @@ $(() => {
     }
     $(".grid-cell__class").html(event.target.classList[1]);
   });
+
+  //Event listener click on save button
+  $('#savebtn').on('click',()=>{
+    data['fileName']=$('#fileName').val();
+    data['inputVal']=inputVal;
+    console.log(data);
+  })
 
   //Observer for resizing column
   const observer = new ResizeObserver((e) => {
@@ -97,7 +120,11 @@ $(() => {
           )
             .addClass("grid-cell__active")
             .focus();
-          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+          const cls = $(".grid-cell__active")[0].classList[1];
+          if((cls in inputVal)===false){
+            inputVal[`${cls}`]=""
+          }
+          $(".grid-cell__class").html(cls);
           $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 38) {
@@ -107,7 +134,11 @@ $(() => {
           $(`.${clsName[0]}${Number(clsName.slice(1, clsName.length)) - 1}`)
             .addClass("grid-cell__active")
             .focus();
-          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+            const cls = $(".grid-cell__active")[0].classList[1];
+            if((cls in inputVal)===false){
+              inputVal[`${cls}`]=""
+            }
+          $(".grid-cell__class").html(cls);
           $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 39) {
@@ -122,7 +153,11 @@ $(() => {
           )
             .addClass("grid-cell__active")
             .focus();
-          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+            const cls = $(".grid-cell__active")[0].classList[1];
+          if((cls in inputVal)===false){
+            inputVal[`${cls}`]=""
+          }
+          $(".grid-cell__class").html(cls);
           $("input#text-input").val($(".grid-cell__active").html());
         }
       } else if (!e.shiftKey && e.keyCode == 40) {
@@ -132,7 +167,11 @@ $(() => {
           $(`.${clsName[0]}${Number(clsName.slice(1, clsName.length)) + 1}`)
             .addClass("grid-cell__active")
             .focus();
-          $(".grid-cell__class").html($(".grid-cell__active")[0].classList[1]);
+            const cls = $(".grid-cell__active")[0].classList[1];
+          if((cls in inputVal)===false){
+            inputVal[`${cls}`]=""
+          }
+          $(".grid-cell__class").html(cls);
           $("input#text-input").val($(".grid-cell__active").html());
         }
       }
@@ -238,7 +277,7 @@ $(() => {
             i <= limit;
             i++
           ) {
-            $(`.${String.fromCharCode(i)}${cls.slice(1,cls.length)}`).removeClass("grid-cell__active");
+            $(`.${String.fromCharCode(i)}${cls.slice(1, cls.length)}`).removeClass("grid-cell__active");
           }
         }
         const newCls = $(".grid-cell__active");
@@ -285,6 +324,7 @@ function enterKeyPressed(event) {
   };
   // if($("input#text-input").val()[0]==='=')
   //   wordCheck();
+  console.log(event.keyCode)
   if (event.keyCode == 13) {
     const val = $("input#text-input").val();
     if (val[0] !== "=") $(".grid-cell__active").html($("#text-input").val());
@@ -379,14 +419,14 @@ const evaluate = (value) => {
     for (let i = Number(num[0]); i <= Number(num[1]); i++) {
       items.push($(`.${alpha[0]}${i}`).html());
     }
-  } else if(num[0]==num[1]){
+  } else if (num[0] == num[1]) {
     for (let i = alpha[0].charCodeAt(0); i <= alpha[1].charCodeAt(0); i++) {
       items.push($(`.${String.fromCharCode(i)}${num[0]}`).html());
     }
   }
-  else{
-    for(let i = alpha[0].charCodeAt(0);i<=alpha[1].charCodeAt(0);i++){
-      for(let j = Number(num[0]);j<=Number(num[1]);j++)
+  else {
+    for (let i = alpha[0].charCodeAt(0); i <= alpha[1].charCodeAt(0); i++) {
+      for (let j = Number(num[0]); j <= Number(num[1]); j++)
         items.push($(`.${String.fromCharCode(i)}${j}`).html())
     }
   }

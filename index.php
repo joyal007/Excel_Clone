@@ -31,10 +31,12 @@
             class="d-inline-block align-text-top"
           />
         </a>
+        <div class="container-fluid flex">
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <input
+                id="fileName"
                 type="text"
                 style="
                   color: grey !important;
@@ -76,6 +78,9 @@
             </li>
           </ul>
         </div>
+        <button id="savebtn" class="btn btn-outline-success" style="height:40px;padding:6px 24px"><img width="25px" style="margin-right:16px;background-color:white;" src="./save.png">SAVE</button>
+        </div>
+        
       </div>
     </nav>
     <hr class="underline" />
@@ -95,8 +100,8 @@
         class="form-control"
         id="text-input"
         autocomplete="off"
-        onkeypress="return enterKeyPressed(event)"
-      />
+        onkeypress="enterKeyPressed(event)"
+      >
     </div>
     <hr class="underline" />
     <div class="grid-sheet">
@@ -138,9 +143,7 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> -->
 
     <script src="./script.js"></script>
-    <script>
-      
-    </script>
+    
     <!-- <script>
       function enterKeyPressed (event){
     if(event.keyCode == 13){
