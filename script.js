@@ -1,3 +1,4 @@
+let inputVal;
 $(() => {
   //Filling top-row with alphabets
   let topRowColumn = "";
@@ -27,12 +28,12 @@ $(() => {
   }
   const fileId = window.location.href.split('=')[1]
   let data={'fileId':fileId};
-  let inputVal = {}
+  
 
-  $.post("getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
-    data = JSON.parse(data).data;
-    inputVal = data.inputVal;
-  })
+  // $.post("getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
+  //   data = JSON.parse(data).data;
+  //   inputVal = data.inputVal;
+  // })
 
   const funct = [
     "SUM",
