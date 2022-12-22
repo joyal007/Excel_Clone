@@ -391,7 +391,7 @@ function enterKeyPressed(event) {
   //   });
   // }
   const expression = {
-    rawCalcu: /^=\d+[+\-*/]\d+$/g,
+    rawCalcu: /^=\d+([+\-*/]\d+)+$/g,
   };
   // if($("input#text-input").val()[0]==='=')
   //   wordCheck();
@@ -401,13 +401,22 @@ function enterKeyPressed(event) {
     if (val[0] !== "=") $(".grid-cell__active").html($("#text-input").val());
     // console.log(event,'Enter key pressed',$("input#text-input").val());
     else {
-      evaluate(val);
+      
       if (expression["rawCalcu"].test(val)) {
-        console.log("Raw Calculation");
+        const res = parse(val.slice(1,val.length))
+        // console.log(val.slice(1,val.length))
+        // console.log(res)
+        $(".grid-cell__active").html(res)
       }
+      else
+        evaluate(val);
     }
   }
   return true;
+}
+
+function parse(str) {
+  return Function(`'use strict'; return (${str})`)()
 }
 
 function wordCheck() {
