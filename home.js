@@ -8,6 +8,15 @@ $(()=>{
     var rnum = Math.floor(Math.random() * characters.length);  
     randomstring += characters.substring(rnum, rnum+1);  
     }
-    location.replace("http://localhost/webprogramming--project/index.php?filename="+randomstring)  
+    window.location.href = "http://localhost/webprogramming--project/index.php?filename="+randomstring
+    
+  })
+  $(".signout-btn").on('click',()=>{
+    console.log('HIii')
+    $.post("signout.php", function (data) {
+      console.log(data)
+      window.location.reload()
+      
+    })
   })
 })

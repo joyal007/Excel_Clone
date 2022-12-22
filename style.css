@@ -12,13 +12,13 @@
 .underline {
   margin-bottom: 1px;
 }
-<<<<<<< HEAD
+
 .flex{
   display:flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  
-=======
+}
+
 .width-spacer{
   width:75%;
 }
@@ -31,7 +31,7 @@
   padding: 0px;
   padding-right: 160px;
   padding-left: 160px;
->>>>>>> c1189c5b915daeb041a8fa88d38959dcad85b5ba
+
 }
 #gray-strip{
   width: 100%;
@@ -60,6 +60,9 @@
   border: 1px solid rgb(216, 216, 216) ;
   border-radius: 3px;
 }
+.created-sheets{
+  padding:0 160px;
+}
 .heading{
   display: flex;
   align-self: baseline;
@@ -70,14 +73,14 @@
 }
 .sub-heading{
   color: rgb(87, 82, 82);
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 10px;
   margin-bottom: 10px;
   
 }
 .mini-heading{
   color: rgb(87, 82, 82);
-  font-size: 17px;
+  font-size: 18px;
   margin: 10px;
   margin-left: 160px;
   align-self: center;
@@ -105,11 +108,12 @@
 .button {
 	text-decoration: none;
 	float: right;
-  padding: 12px;
-  margin: 15px;
+  /* padding: 12px;
+  margin: 15px; */
+  width:100%;
   color: white;
   width: auto;
-  background-color: black;
+
   text-align: center;
   /* transition: width .35s;
   -webkit-transition: width .35s; */

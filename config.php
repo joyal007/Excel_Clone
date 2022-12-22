@@ -47,7 +47,7 @@ if(isset($_POST['signin'])){
         if($pass == $match){
             $_SESSION["message"]="";
             $_SESSION["username"]=$row['user'];
-            $_SESSION["email"] = $row['email'];
+            $_SESSION["email"] = $email;
             header("location:home.php");
         }
         else{

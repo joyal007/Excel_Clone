@@ -1,3 +1,10 @@
+<?php
+session_start();
+if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SESSION['username'])) {
+  header('location:signin.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,8 +85,33 @@
             </li>
           </ul>
         </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+        <button class="btn " id="download-btn" title="download as csv"> <img width="25px" style="margin-right:16px;background-color:white;" src="./download.png"> </button>
         <button id="savebtn" class="btn btn-outline-success" style="height:40px;padding:6px 24px"><img width="25px" style="margin-right:16px;background-color:white;" src="./save.png">SAVE</button>
-        </div>
+        
+        <img src="./default-dp.jpg" alt="profile picture"
+            width="50" height="50" class="d-inline-block dropdown "
+            style=" margin: 10px;">
+            <div class="dropdown-content" style="z-index:99">
+                <div style="padding-left: 12px;"><p>
+
+                  <?php
+                                  echo '<p class="" style="font-size:18px;margin:auto 8px">User : '.$_SESSION["username"].' </p>';
+
+                echo '<p  style="font-size:18px;margin:auto 8px">Email : <span class="usermail">'.$_SESSION["email"].'</span> </p>';
+                ?>
+                </p></div>
+                <div class=" btn btn-success signout-btn" ><h3 style="color: aliceblue;font-size: 18px;
+                    font-family: 'Oswald', sans-serif;">Log Out</h2></div>
+            </div>
+        
+        <!-- <div style="padding-left: 12px;">
+                    <?php
+// echo '<p class="usermail" style="font-size:18px;margin:auto 8px">'.$_SESSION["email"].' </p>';
+?>
+               </div>   -->
+      </div>  
+      </div>
         
       </div>
     </nav>

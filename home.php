@@ -1,4 +1,5 @@
 <?php
+require_once "db.php";
 session_start();
 if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SESSION['username'])) {
     header('location:signin.php');
@@ -28,24 +29,30 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
     </head>
     <body>
         <nav class="navbar navbar-expand-lg" >
-<<<<<<< HEAD:home.php
+
 
             <div class="top-sec">
-=======
-            
+
+
             <div class="top-sec ">
                 <img src="./default-dp.jpg" alt="profile picture"
-            width="50" height="50" class="d-inline-block dropdown " 
+            width="50" height="50" class="d-inline-block dropdown "
             style=" margin: 10px;">
             <div class="dropdown-content">
-                <div style="padding-left: 12px;"><p>saheenusman@gmail.com</p></div>
-                <div class="button"><a href="#" ><h3 style="color: aliceblue;font-size: 22px;
-                    font-family: 'Oswald', sans-serif;">Log Out</h2></a></div>
+                <div style="padding-left: 12px;"><p>
+                    <?php
+echo $_SESSION["email"]
+?>
+                </p></div>
+                <div class=" signout-btn btn btn-success" ><h3 style="color: aliceblue;font-size: 22px;
+                    font-family: 'Oswald', sans-serif;">Log Out</h2></div>
             </div>
-                <div class="menu_b" 
-                style=" margin-left: 72%;"><p class="cred ">Saheen Usman</p></div>
-            
->>>>>>> c1189c5b915daeb041a8fa88d38959dcad85b5ba:home.html
+                <div class="menu_b"
+                style=" margin-left: 72%;"><p class="cred "><?php
+echo $_SESSION["username"]
+?></p></div>
+
+
                 <div class="menu_b">
                     <h3 class="heading">Excel</h3>
                 </div>
@@ -75,7 +82,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
         <div id="gray-strip">
             <div id="inside-strip">
                 <h4 class="sub-heading">Start a new spreadsheet</h4>
-                
+
                     <div id = "white-rect">
                         <img src="./plus4.png"
                             alt="new spreadsheet"
@@ -83,48 +90,50 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
                             height="85"
                             class="d-inline-block align-text-top"/>
                     </div>
-                
+
 
                 <h6 class="mini-heading">Blank</h6>
             </div>
         </div>
         <div class="sub-heading-row">
-            <h2 class="sub-heading">Created Spreadsheets</h2>
+            <h2 class="sub-heading">Saved  Spreadsheets</h2>
         <!-- <div class="width-spacer"></div> -->
-            <h4 class="mini-heading">Last opened</h4>
+            <h4 class="mini-heading" style="margin-right:56px">Last opened</h4>
         </div>
-        <div id="created-sheets"></div>
-<<<<<<< HEAD:home.php
+        <div class="created-sheets">
         <?php
-echo $_SESSION["login_userid"];
-echo $_SERVER['REQUEST_URI'];    
+// echo $_SESSION["username"];
+// echo $_SESSION["email"];
+
+
+    $sql = "select * from sheets where JSON_VALUE(data,'$.usermail') ='" . $_SESSION['email'] . "'";
+    // echo $sql;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // print_r($row);
+            
+            // print_r($val['sheetid']) ;
+            $val = json_decode($row["data"], true);
+            // print_r($val);
+            // echo $val["fileId"];
+            echo "<a style='text-decoration:none;color: rgb(168, 161, 161);cursor:pointer' href='http://localhost/webprogramming--project/index.php?filename=" . $val["fileId"] . "'><div style='display:flex;align-items:center;justify-content:space-between;margin-top:16px'><div style='display:flex'><img src='./logo.png' width='35px' style='margin-right:56px'/><p style='font-size:18px;margin:auto 0'>" . $val["fileName"] . "</p></div><div style='display:flex'><p style='font-size:18px;margin:auto 0'>".date("d-M-Y",( (int)$val['time'])/1000)."</p><img style='margin-left:32px' height='24px' src='./dot.png'/></div></div></a><hr>  ";
+        }
+    } else {
+        echo "<div style='display:flex;align-items:center;justify-content:center;color:grey;font-size:18px'>No saved files found</div>";
+    }
+
 ?>
-<script
+</div>
+
+
+
+    <script
       src="https://code.jquery.com/jquery-3.6.1.min.js"
       integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
       crossorigin="anonymous"
     ></script>
     <script src="./home.js"></script>
-=======
-        <script>
-            var listDiv=document.createElement('div');
-            listDiv.className='sub-heading-row'; 
-            // document.getElementById("created-sheets").appendChild(listDiv);
-            var sheetName=document.createElement('h5');
-            sheetName.className='list-item';
-            var nameText=document.createTextNode("Quartely Earnings");
-            sheetName.appendChild(nameText);
-            var sheetDate=document.createElement('h6');
-            sheetDate.className='list-item';
-            var nameDate=document.createTextNode("15/12/2022");
-            sheetDate.appendChild(nameDate);
-            listDiv.appendChild(sheetName);
-            listDiv.appendChild(sheetDate);
-            document.getElementById("created-sheets").appendChild(listDiv);
-        </script>
-
-        
-        
->>>>>>> c1189c5b915daeb041a8fa88d38959dcad85b5ba:home.html
+    
     </body>
 </html>

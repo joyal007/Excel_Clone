@@ -1,3 +1,5 @@
+
+
 $(() => {
   //Filling top-row with alphabets
   let topRowColumn = "";
@@ -27,11 +29,20 @@ $(() => {
   }
   const fileId = window.location.href.split('=')[1]
   let data={'fileId':fileId};
-  let inputVal = {}
+  let inputVal = {"A1":""};
 
   $.post("getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
+    console.log(data)
     data = JSON.parse(data).data;
-    inputVal = data.inputVal;
+    console.log(data);
+    if(data)
+   { data = JSON.parse(data);
+    inputVal = data["inputVal"];
+    $('#fileName').val(data['fileName'])
+    // console.log(inputVal);
+    for (let i in inputVal){
+      $(`.${i}`).html(inputVal[i])
+    }}
   })
 
   const funct = [
@@ -60,21 +71,22 @@ $(() => {
   //Auto Focus to gridcell
   $(".grid-cell__active").focus();
 
- 
 
   //click event listener to grid-cell
-  $(".grid-row .grid-cell").on("click", (event) => {
+  $(".grid-row .grid-cell").on("click", function (event){
+
     console.log(inputVal);
+
     $("div").removeClass("grid-cell__active");
     const cls = event.target.classList[1];
     // console.log(cls in inputVal);
-    // if((cls in inputVal)===false){
-    //   inputVal[`${cls}`]=""
-    // }
+    if((cls in inputVal)===false){
+      inputVal[`${cls}`]=""
+    }
     $(event.target).addClass("grid-cell__active");
     const gridCellVal = $(".grid-cell__active").html();
-    const inputVal = $("input#text-input").val();
-    if (inputVal !== gridCellVal) {
+    const input = $("input#text-input").val();
+    if (input !== gridCellVal) {
       $("input#text-input").val(gridCellVal);
     }
     $(".grid-cell__class").html(event.target.classList[1]);
@@ -82,9 +94,66 @@ $(() => {
 
   //Event listener click on save button
   $('#savebtn').on('click',()=>{
+    const newjs ={};
+    for(let i in inputVal){
+      newjs[i]=$(`.${i}`).html();
+    }
+    // console.log(newjs)
     data['fileName']=$('#fileName').val();
-    data['inputVal']=inputVal;
+    data['inputVal']=newjs;
+    data['time']=$.now();
+    data['usermail']=$(".usermail").html();
     console.log(data);
+    $.post("getexceldata.php", { fileID: fileId,value:JSON.stringify(data), type: 'post' }, function (data) {
+      console.log(data)
+ 
+      // inputVal = data.inputVal;
+    })
+  })
+  $('#download-btn').on('click',()=>{
+    let key = Object.keys(inputVal);
+    key = key.sort();
+
+    const init = key[0]
+    const fin = key[key.length-1]
+    // console.log(init,' ',fin)
+    
+    let smallI = 1;
+    let largeI = 1;
+    let smallA = 65;
+    let largeA = 65;
+
+    key.forEach(e=>{
+      if(e.slice(0,1).charCodeAt(0)<smallA)
+        smallI = e.slice(0,1).charCodeAt(0);
+      else if(e.slice(0,1).charCodeAt(0)>largeA)
+        largeA =e.slice(0,1).charCodeAt(0);
+      if(parseInt(e.slice(1,e.length))<smallI)
+        smallI = parseInt(e.slice(1,init.length));
+      else if(parseInt(e.slice(1,init.length))>largeI)
+        largeI = parseInt(e.slice(1,init.length));
+    })
+    var str = '';
+    for(let j= smallI;j<=largeI;j++){
+      var line = '';
+    for(let i = smallA;i<=largeA;i++){
+      if (line != '') line += ','
+      const val = $(`.${String.fromCharCode(i)}${j}`).html();
+      line += val;
+    }
+    str += line + '\r\n';
+  }
+
+  var encodedUri = encodeURI("data:text/csv;charset=utf-8,"+str);
+var link = document.createElement("a");
+link.setAttribute("href", encodedUri);
+const fnam = $('#fileName').val();
+link.setAttribute("download", fnam);
+document.body.appendChild(link); // Required for FF
+
+link.click();
+
+    // console.log(str);
   })
 
   //Observer for resizing column
@@ -302,6 +371,8 @@ function functionCall(typeCall) {
   $("input#text-input").val(`=${typeCall}(${$(".grid-cell__class").html()})`);
   evaluate(`=${typeCall}(${$(".grid-cell__class").html()})`);
 }
+
+
 
 function enterKeyPressed(event) {
   // if($("input#text-input").val()[0]!=='='){
