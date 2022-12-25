@@ -48,6 +48,7 @@ $(() => {
    { data = JSON.parse(data);
     inputVal = data["inputVal"];
     $('#fileName').val(data['fileName'])
+    $(".title").html(data["fileName"])
     // console.log(inputVal);
     for (let i in inputVal){
       $(`.${i}`).html(inputVal[i])
@@ -530,14 +531,14 @@ const evaluate = (value) => {
       1,
       cls[cls.length - 1].classList[1].length
     );
-    if (cls[0].classList[1][1] == cls[1].classList[1][1]) {
+    // if (cls[0].classList[1][1] == cls[cls.length-1].classList[1][1]) {
       $(`.${alpha}${Number(num) + 1}`)
         .html(res)
         .addClass("grid-cell__active");
-    } else {
-      $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${num}`)
-        .html(res)
-        .addClass("grid-cell__active");
-    }
+    // } else {
+    //   $(`.${String.fromCharCode(alpha.charCodeAt(0) + 1)}${num}`)
+    //     .html(res)
+    //     .addClass("grid-cell__active");
+    // }
   }
 };
