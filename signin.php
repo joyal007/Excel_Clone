@@ -14,14 +14,14 @@ if ((isset($_SESSION['username']) && isset($_SESSION['email'])) && !empty($_SESS
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
 
-    <link rel="icon" type="image/x-icon" href="./logo.png">
+    <link rel="icon" type="image/x-icon" href="./assets/logo.png">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link href="./sign.css" rel="stylesheet" />
+    <link href="./style/sign.css" rel="stylesheet" />
 </head>
 <body>
     <div class="center-main"> 
@@ -53,7 +53,7 @@ if ((isset($_SESSION['username']) && isset($_SESSION['email'])) && !empty($_SESS
               
             ?>
             <div class="footer">
-                <a href="signup.html"><button type="button" class="btn" style="color:rgb(73, 121, 209);padding:0">Create account</button></a>
+                <a href="signup.php"><button type="button" class="btn" style="color:rgb(73, 121, 209);padding:0">Create account</button></a>
                 <button type="submit" name="signin" class="btn btn-primary" style="padding:6px 24px">Sign In</button>
             </div>
           </div>

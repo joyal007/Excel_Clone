@@ -1,5 +1,5 @@
 <?php
-require_once "db.php";
+require_once "./api/db.php";
 session_start();
 if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SESSION['username'])) {
     header('location:signin.php');
@@ -25,7 +25,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css" integrity="sha512-6c4nX2tn5KbzeBJo9Ywpa0Gkt+mzCzJBrE1RB6fmpcsoN+b/w/euwIMuQKNyUoU/nToKN3a8SgNOtPrbW12fug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- CSS -->
-        <link href="./style.css" rel="stylesheet" />
+        <link href="./style/style.css" rel="stylesheet" />
     </head>
     <body>
         <nav class="navbar navbar-expand-lg" >
@@ -35,7 +35,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
 
 
             <div class="top-sec ">
-                <img src="./default-dp.jpg" alt="profile picture"
+                <img src="./assets/default-dp.jpg" alt="profile picture"
             width="50" height="50" class="d-inline-block dropdown "
             style=" margin: 10px;">
             <div class="dropdown-content">
@@ -58,7 +58,7 @@ echo $_SESSION["username"]
                 </div>
                 <div class="menu_b">
                     <a href="#">
-                        <img src="./logo.png"
+                        <img src="./assets/logo.png"
                         alt="Logo"
                         width="40"
                         height="40"
@@ -67,7 +67,7 @@ echo $_SESSION["username"]
                 </div>
                 <div class="menu_b">
                     <a class="navbar-brand" href="#">
-                        <img src="./menu_icon.png"
+                        <img src="./assets/menu_icon.png"
                         alt="Logo"
                         width="40"
                         height="40"
@@ -84,7 +84,7 @@ echo $_SESSION["username"]
                 <h4 class="sub-heading">Start a new spreadsheet</h4>
 
                     <div id = "white-rect">
-                        <img src="./plus4.png"
+                        <img src="./assets/plus4.png"
                             alt="new spreadsheet"
                             width="85"
                             height="85"
@@ -117,7 +117,7 @@ echo $_SESSION["username"]
             $val = json_decode($row["data"], true);
             // print_r($val);
             // echo $val["fileId"];
-            echo "<a style='text-decoration:none;color: rgb(168, 161, 161);cursor:pointer' href='http://localhost/webprogramming--project/index.php?filename=" . $val["fileId"] . "'><div style='display:flex;align-items:center;justify-content:space-between;margin-top:16px'><div style='display:flex'><img src='./logo.png' width='35px' style='margin-right:56px'/><p style='font-size:18px;margin:auto 0'>" . $val["fileName"] . "</p></div><div style='display:flex'><p style='font-size:18px;margin:auto 0'>".date("d-M-Y",( (int)$val['time'])/1000)."</p><img style='margin-left:32px' height='24px' src='./dot.png'/></div></div></a><hr>  ";
+            echo "<a style='text-decoration:none;color: rgb(168, 161, 161);cursor:pointer' href='http://localhost/webprogramming--project/index.php?filename=" . $val["fileId"] . "'><div style='display:flex;align-items:center;justify-content:space-between;margin-top:16px'><div style='display:flex'><img src='./assets/logo.png' width='35px' style='margin-right:56px'/><p style='font-size:18px;margin:auto 0'>" . $val["fileName"] . "</p></div><div style='display:flex'><p style='font-size:18px;margin:auto 0'>".date("d-M-Y",( (int)$val['time'])/1000)."</p><img style='margin-left:32px' height='24px' src='./assets/dot.png'/></div></div></a><hr>  ";
         }
     } else {
         echo "<div style='display:flex;align-items:center;justify-content:center;color:grey;font-size:18px'>No saved files found</div>";
@@ -133,7 +133,7 @@ echo $_SESSION["username"]
       integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
       crossorigin="anonymous"
     ></script>
-    <script src="./home.js"></script>
+    <script src="./script/home.js"></script>
     
     </body>
 </html>

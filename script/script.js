@@ -27,11 +27,20 @@ $(() => {
     row_cells += "</div>";
     $(".main-sheet").append(row_cells);
   }
+
+  $(".signout-btn").on('click',()=>{
+    console.log('HIii')
+    $.post("./api/signout.php", function (data) {
+      console.log(data)
+      window.location.reload()
+      
+    })
+  })
   const fileId = window.location.href.split('=')[1]
   let data={'fileId':fileId};
   let inputVal = {"A1":""};
 
-  $.post("getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
+  $.post("./api/getexceldata.php", { fileID: fileId, type: 'get' }, function (data) {
     console.log(data)
     data = JSON.parse(data).data;
     console.log(data);
@@ -104,7 +113,7 @@ $(() => {
     data['time']=$.now();
     data['usermail']=$(".usermail").html();
     console.log(data);
-    $.post("getexceldata.php", { fileID: fileId,value:JSON.stringify(data), type: 'post' }, function (data) {
+    $.post("./api/getexceldata.php", { fileID: fileId,value:JSON.stringify(data), type: 'post' }, function (data) {
       console.log(data)
  
       // inputVal = data.inputVal;

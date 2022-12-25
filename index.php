@@ -12,7 +12,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Excel Sheet</title>
-    <link rel="icon" type="image/x-icon" href="./logo.png">
+    <link rel="icon" type="image/x-icon" href="./assets/logo.png">
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -24,14 +24,14 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css" integrity="sha512-6c4nX2tn5KbzeBJo9Ywpa0Gkt+mzCzJBrE1RB6fmpcsoN+b/w/euwIMuQKNyUoU/nToKN3a8SgNOtPrbW12fug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS -->
-    <link href="./style.css" rel="stylesheet" />
+    <link href="./style/style.css" rel="stylesheet" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img
-            src="./logo.png"
+            src="./assets/logo.png"
             alt="Logo"
             width="40"
             height="40"
@@ -86,10 +86,10 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
           </ul>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
-        <button class="btn " id="download-btn" title="download as csv"> <img width="25px" style="margin-right:16px;background-color:white;" src="./download.png"> </button>
-        <button id="savebtn" class="btn btn-outline-success" style="height:40px;padding:6px 24px"><img width="25px" style="margin-right:16px;background-color:white;" src="./save.png">SAVE</button>
+        <button class="btn " id="download-btn" title="download as csv"> <img width="25px" style="margin-right:16px;background-color:white;" src="./assets/download.png"> </button>
+        <button id="savebtn" class="btn btn-outline-success" style="height:40px;padding:6px 24px"><img width="25px" style="margin-right:16px;background-color:white;" src="./assets/save.png">SAVE</button>
         
-        <img src="./default-dp.jpg" alt="profile picture"
+        <img src="./assets/default-dp.jpg" alt="profile picture"
             width="50" height="50" class="d-inline-block dropdown "
             style=" margin: 10px;">
             <div class="dropdown-content" style="z-index:99">
@@ -122,7 +122,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
       </div>
       <div class="dropdown" style="margin-right:8px" >
         <button class="btn dropdown-toggle" style="border:1px solid rgb(211, 207, 207);" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="./function.png" style="margin:0 10px;align-items:center" width="30px" height="20px" alt="" srcset="">
+          <img src="./assets/function.png" style="margin:0 10px;align-items:center" width="30px" height="20px" alt="" srcset="">
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
         </div>
@@ -174,7 +174,7 @@ if ((!isset($_SESSION['username']) && !isset($_SESSION['email'])) || empty($_SES
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js" integrity="sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <!-- JavaScript Bundle with Popper -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> -->
 
-    <script src="./script.js"></script>
+    <script src="./script/script.js"></script>
     
     <!-- <script>
       function enterKeyPressed (event){

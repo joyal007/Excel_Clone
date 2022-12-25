@@ -13,7 +13,7 @@ $(()=>{
   })
   $(".signout-btn").on('click',()=>{
     console.log('HIii')
-    $.post("signout.php", function (data) {
+    $.post("./api/signout.php", function (data) {
       console.log(data)
       window.location.reload()
       

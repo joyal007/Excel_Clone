@@ -1,5 +1,5 @@
 <?php
-require_once "db.php";
+require_once "./api/db.php";
 session_start();
 
 if(isset($_POST["signup"])){
